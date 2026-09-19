@@ -18,6 +18,7 @@ export function useSupportRequestStore() {
         message,
       });
 
+
       success.value = true;
     } catch {
       error.value = "Failed to submit support request.";

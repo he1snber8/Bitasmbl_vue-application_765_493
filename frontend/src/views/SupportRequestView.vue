@@ -20,7 +20,7 @@ async function submit() {
 <template>
   <form @submit.prevent="submit">
     <input v-model="name" placeholder="Name" />
-
+    //
     <input v-model="email" type="email" placeholder="Email" />
 
     <textarea v-model="message" placeholder="How can we help?" />

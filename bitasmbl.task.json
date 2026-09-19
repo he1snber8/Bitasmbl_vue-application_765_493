@@ -2,13 +2,37 @@
   "projectApplicationId": 493,
   "requirementId": 945,
   "files": [
+    "frontend/src/api/client.ts",
+    "frontend/src/services/supportRequestService.ts",
     "frontend/src/stores/supportRequest.ts"
   ],
   "activityMeta": [
     {
       "file": "frontend/src/stores/supportRequest.ts",
       "requirementId": 945,
-      "lastModified": "2026-09-19T18:48:15.818Z",
+      "lastModified": "2026-09-19T18:53:48.200Z",
+      "activity": {
+        "editEvents": 2,
+        "activeDurationSec": 300,
+        "idleBreaks": 1,
+        "medianEditIntervalSec": 332,
+        "intervalSamples": [
+          332
+        ]
+      },
+      "diffStats": {
+        "linesAdded": 2,
+        "linesDeleted": 1
+      },
+      "sourceHints": {
+        "possiblePaste": false,
+        "suspiciousJump": false
+      }
+    },
+    {
+      "file": "frontend/src/services/supportRequestService.ts",
+      "requirementId": 945,
+      "lastModified": "2026-09-19T18:53:53.096Z",
       "activity": {
         "editEvents": 1,
         "activeDurationSec": 0,
@@ -17,8 +41,28 @@
         "intervalSamples": []
       },
       "diffStats": {
-        "linesAdded": 35,
-        "linesDeleted": 0
+        "linesAdded": 2,
+        "linesDeleted": 2
+      },
+      "sourceHints": {
+        "possiblePaste": false,
+        "suspiciousJump": false
+      }
+    },
+    {
+      "file": "frontend/src/api/client.ts",
+      "requirementId": 945,
+      "lastModified": "2026-09-19T18:53:58.791Z",
+      "activity": {
+        "editEvents": 1,
+        "activeDurationSec": 0,
+        "idleBreaks": 0,
+        "medianEditIntervalSec": 0,
+        "intervalSamples": []
+      },
+      "diffStats": {
+        "linesAdded": 1,
+        "linesDeleted": 1
       },
       "sourceHints": {
         "possiblePaste": false,
