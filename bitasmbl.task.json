@@ -1,26 +1,24 @@
 {
   "projectApplicationId": 493,
-  "requirementId": 943,
+  "requirementId": 945,
   "files": [
-    "frontend/src/views/view.ts"
+    "frontend/src/stores/supportRequest.ts"
   ],
   "activityMeta": [
     {
-      "file": "frontend/src/views/view.ts",
-      "requirementId": 943,
-      "lastModified": "2026-09-19T13:57:13.752Z",
+      "file": "frontend/src/stores/supportRequest.ts",
+      "requirementId": 945,
+      "lastModified": "2026-09-19T18:48:15.818Z",
       "activity": {
-        "editEvents": 2,
-        "activeDurationSec": 300,
-        "idleBreaks": 1,
-        "medianEditIntervalSec": 2165,
-        "intervalSamples": [
-          2165
-        ]
+        "editEvents": 1,
+        "activeDurationSec": 0,
+        "idleBreaks": 0,
+        "medianEditIntervalSec": 0,
+        "intervalSamples": []
       },
       "diffStats": {
-        "linesAdded": 2,
-        "linesDeleted": 1
+        "linesAdded": 35,
+        "linesDeleted": 0
       },
       "sourceHints": {
         "possiblePaste": false,
