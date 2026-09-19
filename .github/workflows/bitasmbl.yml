@@ -133,24 +133,31 @@ jobs:
           echo "diff=$DIFF_ESCAPED" >> $GITHUB_OUTPUT
 
       - name: Send to backend
+
         run: |
-          RESPONSE=$(curl -s \
+          jq -n \
+          --arg projectApplicationId "${{ steps.meta.outputs.project_application_id }}" \
+          --arg requirementId "${{ steps.meta.outputs.requirement_id }}" \
+          --arg repo "${{ github.repository }}" \
+          --arg baseSha "${{ github.event.before }}" \
+          --arg commitSha "${{ github.sha }}" \
+          --arg diffs '${{ steps.diff.outputs.diff }}' \
+          --arg activityMeta '${{ steps.meta.outputs.activity_data }}' \
+          '{
+            projectApplicationId: ($projectApplicationId | tonumber),
+            requirementId: ($requirementId | tonumber),
+            repo: $repo,
+            baseSha: $baseSha,
+            commitSha: $commitSha,
+            diffs: $diffs,
+            activityMeta: ($activityMeta | fromjson)
+          }' |
+          curl -s \
             -w "\n%{http_code}" \
-            -X POST https://63fb-176-221-143-53.ngrok-free.app/projects/evaluate-code-diff \
+            -X POST "https://63fb-176-221-143-53.ngrok-free.app/projects/evaluate-code-diff" \
             -H "Content-Type: application/json" \
             -H "Authorization: Bearer ${{ secrets.BITASMBL_TOKEN }}" \
-            -d @- <<EOF
-          {
-            "projectApplicationId": ${{ steps.meta.outputs.project_application_id }},
-            "requirementId": ${{ steps.meta.outputs.requirement_id }},
-            "repo": "${{ github.repository }}",
-            "baseSha": "${{ github.event.before }}",
-            "commitSha": "${{ github.sha }}",
-            "diffs": ${{ steps.diff.outputs.diff }},
-            "activityMeta": ${{ steps.meta.outputs.activity_data }}
-          }
-          EOF
-          )
+            -d @-
 
           STATUS=$(echo "$RESPONSE" | tail -n1)
           BODY=$(echo "$RESPONSE" | sed '$d')
