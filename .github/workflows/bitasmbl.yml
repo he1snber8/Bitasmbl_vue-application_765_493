@@ -113,22 +113,30 @@ jobs:
           echo "activity_data<<EOF" >> $GITHUB_OUTPUT
           echo "$ACTIVITY_DATA" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-      - name: Get git diff
-        id: diff
-        run: |
-          echo "diff<<EOF" >> $GITHUB_OUTPUT
-          git diff HEAD^ HEAD >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+      # - name: Get git diff
+      #   id: diff
+      #   run: |
+      #     echo "diff<<EOF" >> $GITHUB_OUTPUT
+      #     git diff HEAD^ HEAD >> $GITHUB_OUTPUT
+      #     echo "EOF" >> $GITHUB_OUTPUT
       - name: Send to backend
+        env:
+          PROJECT_APPLICATION_ID: ${{ steps.meta.outputs.project_application_id }}
+          REQUIREMENT_ID: ${{ steps.meta.outputs.requirement_id }}
+          ACTIVITY_META: ${{ steps.meta.outputs.activity_data }}
+          REPO: ${{ github.repository }}
+          BASE_SHA: ${{ github.event.before }}
+          COMMIT_SHA: ${{ github.sha }}
+          BITASMBL_TOKEN: ${{ secrets.BITASMBL_TOKEN }}
         run: |
           PAYLOAD=$(jq -n \
-            --arg projectApplicationId "${{ steps.meta.outputs.project_application_id }}" \
-            --arg requirementId "${{ steps.meta.outputs.requirement_id }}" \
-            --arg repo "${{ github.repository }}" \
-            --arg baseSha "${{ github.event.before }}" \
-            --arg commitSha "${{ github.sha }}" \
-            --arg diffs "${{ steps.diff.outputs.diff }}" \
-            --arg activityMeta '${{ steps.meta.outputs.activity_data }}' \
+            --arg projectApplicationId "$PROJECT_APPLICATION_ID" \
+            --arg requirementId "$REQUIREMENT_ID" \
+            --arg repo "$REPO" \
+            --arg baseSha "$BASE_SHA" \
+            --arg commitSha "$COMMIT_SHA" \
+            --arg diffs "$(git diff HEAD^ HEAD)" \
+            --arg activityMeta "$ACTIVITY_META" \
             '{
               projectApplicationId: ($projectApplicationId | tonumber),
               requirementId: ($requirementId | tonumber),
@@ -137,13 +145,14 @@ jobs:
               commitSha: $commitSha,
               diffs: $diffs,
               activityMeta: ($activityMeta | fromjson)
-            }')
+            }'
+          )
 
           RESPONSE=$(curl -s \
             -w "\n%{http_code}" \
             -X POST "https://63fb-176-221-143-53.ngrok-free.app/projects/evaluate-code-diff" \
             -H "Content-Type: application/json" \
-            -H "Authorization: Bearer ${{ secrets.BITASMBL_TOKEN }}" \
+            -H "Authorization: Bearer $BITASMBL_TOKEN" \
             -d "$PAYLOAD")
 
           STATUS=$(echo "$RESPONSE" | tail -n1)
