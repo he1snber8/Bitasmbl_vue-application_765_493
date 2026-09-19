@@ -46,7 +46,7 @@ jobs:
         run: |
           RESPONSE=$(curl -s \
             -w "\n%{http_code}" \
-            -X PUT https://f337-176-221-143-53.ngrok-free.app/projects/application-repo-init-complete \
+            -X PUT https://63fb-176-221-143-53.ngrok-free.app/projects/application-repo-init-complete \
             -H "Content-Type: application/json" \
             -d @- <<EOF
           {
@@ -92,7 +92,7 @@ jobs:
         run: |
           RESPONSE=$(curl -s \
           -w "\n%{http_code}" \
-          -X POST https://f337-176-221-143-53.ngrok-free.app/users/check-token-validity \
+          -X POST https://63fb-176-221-143-53.ngrok-free.app/users/check-token-validity \
           -H "Content-Type: application/json" \
           -H "Authorization: Bearer ${{ secrets.BITASMBL_TOKEN }}")
 
@@ -136,7 +136,7 @@ jobs:
         run: |
           RESPONSE=$(curl -s \
             -w "\n%{http_code}" \
-            -X POST https://f337-176-221-143-53.ngrok-free.app/projects/evaluate-code-diff \
+            -X POST https://63fb-176-221-143-53.ngrok-free.app/projects/evaluate-code-diff \
             -H "Content-Type: application/json" \
             -H "Authorization: Bearer ${{ secrets.BITASMBL_TOKEN }}" \
             -d @- <<EOF
