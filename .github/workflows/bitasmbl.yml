@@ -18,7 +18,7 @@ jobs:
       - name: Scaffold Tech
         shell: bash
         run: | 
-          npm create vite@latest frontend -- --template vue-ts --skip-install && cd frontend && npm install vue-router && npm install pinia
+          npm create vite@latest frontend -- --template vue-ts --skip-install && cd frontend && npm install vue-router && npm install pinia 
       - name: Commit scaffold
         run: |
           git config user.name "${{ github.actor }}"
