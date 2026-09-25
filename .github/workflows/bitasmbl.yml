@@ -108,7 +108,7 @@ jobs:
           REQUIREMENT_ID=$(jq -r '.requirementId' bitasmbl.task.json)
           ACTIVITY_DATA=$(jq -c '.activityMeta' bitasmbl.task.json)
 
-          echo ""project_application_linked_repo_id=$PROJECT_APPLICATION_LINKED_REPO_ID"" >> $GITHUB_OUTPUT
+          echo "project_application_linked_repo_id=$PROJECT_APPLICATION_LINKED_REPO_ID" >> $GITHUB_OUTPUT
           echo "project_application_id=$PROJECT_APPLICATION_ID" >> $GITHUB_OUTPUT
           echo "requirement_id=$REQUIREMENT_ID" >> $GITHUB_OUTPUT
 
@@ -123,6 +123,7 @@ jobs:
       #     echo "EOF" >> $GITHUB_OUTPUT
       - name: Send to backend
         env:
+          PROJECT_APPLICATION_LINKED_REPO_ID: ${{ steps.meta.outputs.project_application_linked_repo_id }}
           PROJECT_APPLICATION_ID: ${{ steps.meta.outputs.project_application_id }}
           REQUIREMENT_ID: ${{ steps.meta.outputs.requirement_id }}
           ACTIVITY_META: ${{ steps.meta.outputs.activity_data }}
