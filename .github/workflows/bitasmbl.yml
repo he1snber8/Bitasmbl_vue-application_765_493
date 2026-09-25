@@ -132,7 +132,7 @@ jobs:
           BITASMBL_TOKEN: ${{ secrets.BITASMBL_TOKEN }}
         run: |
           PAYLOAD=$(jq -n \
-            --arg projectApplicationLinkedRepoId ""$PROJECT_APPLICATION_LINKED_REPO_ID"" \
+            --arg projectApplicationLinkedRepoId "$PROJECT_APPLICATION_LINKED_REPO_ID" \
             --arg projectApplicationId "$PROJECT_APPLICATION_ID" \
             --arg requirementId "$REQUIREMENT_ID" \
             --arg repo "$REPO" \
